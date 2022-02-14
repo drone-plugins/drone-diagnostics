@@ -1,6 +1,6 @@
 # drone-diagnostics
 
-A plugin to cli tools to diagnose issues in a build.
+A plugin with cli tools to diagnose issues in a build. Available here `https://hub.docker.com/r/plugins/drone-diagnostics`
 
 ## Usage
 
@@ -24,8 +24,8 @@ clone:
   disable: true
 
 steps:
-- name: run tphoney/drone-diagnostics plugin
-  image: tphoney/drone-diagnostics
+- name: run plugins/drone-diagnostics plugin
+  image: plugins/drone-diagnostics
   pull: if-not-exists
   commands:
     - env
@@ -48,8 +48,8 @@ steps:
   image: alpine
   commands:
     - echo 'ftp rules' # perform some ftp commands
-- name: run tphoney/drone-diagnostics plugin
-  image: tphoney/drone-diagnostics
+- name: run plugins/drone-diagnostics plugin
+  image: plugins/drone-diagnostics
   pull: if-not-exists
   commands:
     - ping ftp.server
@@ -64,20 +64,5 @@ steps:
 Build the plugin image:
 
 ```text
-docker build -t tphoney/drone-diagnostics -f docker/Dockerfile .
-```
-
-## Testing
-
-Execute the plugin from your current working directory:
-
-```text
-docker run --rm -e PLUGIN_PARAM1=foo -e PLUGIN_PARAM2=bar \
-  -e DRONE_COMMIT_SHA=8f51ad7884c5eb69c11d260a31da7a745e6b78e2 \
-  -e DRONE_COMMIT_BRANCH=master \
-  -e DRONE_BUILD_NUMBER=43 \
-  -e DRONE_BUILD_STATUS=success \
-  -w /drone/src \
-  -v $(pwd):/drone/src \
-  tphoney/drone-diagnostics
+docker build -t plugins/drone-diagnostics -f docker/Dockerfile .
 ```
